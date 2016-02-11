@@ -470,7 +470,7 @@ while True:
     cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
     cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
     img = cv2.add(frame,mask)
-    cv2.imshow('frame',img)
+    #cv2.imshow('frame',img)
 
   disp=(p1-p0_backup_preshaped)
   #dist = dist*dist
@@ -566,7 +566,7 @@ while True:
     #raw_input()
 
     
-    timenow=datetime.datetime.now().strftime("%H-%M-%S")
+    timenow=datetime.datetime.now().strftime("%d-%m-%y__%H-%M-%S")
 
     
 
