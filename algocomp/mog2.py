@@ -3,14 +3,18 @@ from template import *
 import time,resource
 import numpy as np
 
-#import cv2
+import platform
 
 #print cv2
 #raw_input()
 
 cap = camera
 #help(cv2.BackgroundSubtractorMOG2)
-fgbg = cv2.BackgroundSubtractorMOG2(100,30,False)
+
+if 'ordroid' in platform.node():
+  fgbg=cv2.createBackgroundSubtractorMOG2()
+else:
+  fgbg = cv2.BackgroundSubtractorMOG2(100,30,False)
 
 
 
