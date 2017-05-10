@@ -12,7 +12,7 @@ cap = camera
 #help(cv2.BackgroundSubtractorMOG2)
 
 if 'odroid' in platform.node():
-  fgbg=cv2.createBackgroundSubtractorMOG2()
+  fgbg=cv2.createBackgroundSubtractorMOG2(100,30,False)
 else:
   fgbg = cv2.BackgroundSubtractorMOG2(100,30,False)
 
