@@ -11,7 +11,7 @@ import platform
 cap = camera
 #help(cv2.BackgroundSubtractorMOG2)
 
-if 'ordroid' in platform.node():
+if 'odroid' in platform.node():
   fgbg=cv2.createBackgroundSubtractorMOG2()
 else:
   fgbg = cv2.BackgroundSubtractorMOG2(100,30,False)
