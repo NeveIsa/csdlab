@@ -3,6 +3,13 @@ import sys,os,json
 import numpy as np
 import datetime,time,json
 
+import pickle
+
+
+## create SVM MODEL from pickle
+svm = pickle.load(open('svm.pkl','rb'))
+normaliser=pickle.load(open('normaliser.pkl','rb'))
+
 #from matplotlib import pyplot as plt
 
 camera_id=sys.argv[1]
@@ -177,7 +184,18 @@ def feed(disp,bgsubfeature):
   DispFeedsRD.append(dispRD)
 
   dist = disp.copy()
-  dist = np.sqrt(dist*dist)
+
+  #CAUTION -- the below dist formula has been used to extract features for d,h and c class
+  # although the formula is not correct for distance
+  #correct formula is dist=np.sqrt(sum(dist*dist))
+  #dist = np.sqrt(dist*dist)
+
+  #To get energy in distLA,distRA,etc, we have put dist=energy for feeding to SVM
+  #as SVM has been trained using ENERGY = sum(dist*dist)
+
+  dist=dist*dist
+  #print dist
+  #raw_input()
 
   distLA = sum(dist[0][0])
   distLB = sum(dist[1][0])
@@ -220,6 +238,16 @@ def feed(disp,bgsubfeature):
     DistFeedsRD.pop(0)
 
     BGSubFeeds.pop(0)
+
+    BGSubFeedsELA.pop(0)
+    BGSubFeedsELB.pop(0)
+    BGSubFeedsELC.pop(0)
+    BGSubFeedsELD.pop(0)
+
+    BGSubFeedsERA.pop(0)
+    BGSubFeedsERB.pop(0)
+    BGSubFeedsERC.pop(0)
+    BGSubFeedsERD.pop(0)
 
  #print (feed.size),len(DispFeedsLA)
 feed.size=0
@@ -461,12 +489,59 @@ while True:
     DispFeedsLCD=np.append(np.array(DispFeedsLC),np.array(DispFeedsLD),axis=1)
     DispFeedsRCD=np.append(np.array(DispFeedsRC),np.array(DispFeedsRD),axis=1)
 
-    VcorrAB=VectorCorr(DispFeedsLAB,DispFeedsRAB)
+    #VcorrAB=VectorCorr(DispFeedsLAB,DispFeedsRAB)
     unVcorrAB=VectorCorr(DispFeedsLAB,DispFeedsRAB,normalise=0)
-    VcorrCD=VectorCorr(DispFeedsLCD,DispFeedsRCD)
+    #VcorrCD=VectorCorr(DispFeedsLCD,DispFeedsRCD)
     unVcorrCD=VectorCorr(DispFeedsLCD,DispFeedsRCD,normalise=0)
+
+
+    BGSub=[
+    BGSubFeedsELA,BGSubFeedsELB,BGSubFeedsELC,BGSubFeedsELD,
+    BGSubFeedsERA,BGSubFeedsERB,BGSubFeedsERC,BGSubFeedsERD
+    ]
+
+    totalBGSub = sum(map(np.array,BGSub)) #np array of 150 elements
+    #print totalBGSub
+
     
 
+    maxBGSubEnergyIndex=np.where(totalBGSub==max(totalBGSub))[0][0]
+    #print maxBGSubEnergyIndex
+
+
+
+    #raw_input()
+
+    #svm.pkl
+    feature4svm=[
+    sum(DistFeedsLA),sum(DistFeedsRA),sum(DistFeedsLB),sum(DistFeedsRB),
+    sum(DistFeedsLC),sum(DistFeedsRC),sum(DistFeedsLD),sum(DistFeedsRD),
+    max(unVcorrAB),max(unVcorrCD),
+    BGSubFeedsELA[maxBGSubEnergyIndex],BGSubFeedsELB[maxBGSubEnergyIndex],BGSubFeedsELC[maxBGSubEnergyIndex],BGSubFeedsELD[maxBGSubEnergyIndex],
+    BGSubFeedsERA[maxBGSubEnergyIndex],BGSubFeedsERB[maxBGSubEnergyIndex],BGSubFeedsERC[maxBGSubEnergyIndex],BGSubFeedsERD[maxBGSubEnergyIndex]
+    ]
+
+    
+    ### svmfixed.pkl
+    '''feature4svm=[
+    max(DistFeedsLA),max(DistFeedsRA),max(DistFeedsLB),max(DistFeedsRB),
+    max(DistFeedsLC),max(DistFeedsRC),max(DistFeedsLD),max(DistFeedsRD),
+    max(unVcorrAB),max(unVcorrCD),
+    BGSubFeedsELA[maxBGSubEnergyIndex],BGSubFeedsELB[maxBGSubEnergyIndex],BGSubFeedsELC[maxBGSubEnergyIndex],BGSubFeedsELD[maxBGSubEnergyIndex],
+    BGSubFeedsERA[maxBGSubEnergyIndex],BGSubFeedsERB[maxBGSubEnergyIndex],BGSubFeedsERC[maxBGSubEnergyIndex],BGSubFeedsERD[maxBGSubEnergyIndex]
+    ]'''
+    
+
+    ### svm3.pkl
+    '''
+    feature4svm=[
+    max(unVcorrAB),max(unVcorrCD)
+    ]'''
+
+    print svm.predict(normaliser.transform([feature4svm]))
+    raw_input()
+    
+    '''
     VcorrA=VectorCorr(DispFeedsLA,DispFeedsRA,normalise=1)
     unVcorrA=VectorCorr(DispFeedsLA,DispFeedsRA,normalise=0)
     EcorrA=Corr(DistFeedsLA,DistFeedsRA)
@@ -487,7 +562,7 @@ while True:
     EcorrD=Corr(DistFeedsLD,DistFeedsRD)
     unEcorrD=Corr(DistFeedsLD,DistFeedsRD,normalise=0)
 
-
+    '''
 
 
     '''
