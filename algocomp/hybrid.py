@@ -3,7 +3,7 @@ import sys,os,json
 import numpy as np
 import datetime,time,json
 
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 
 camera_id=sys.argv[1]
 
