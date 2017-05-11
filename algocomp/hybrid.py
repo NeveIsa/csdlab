@@ -7,8 +7,8 @@ import pickle
 
 
 ## create SVM MODEL from pickle
-svm = pickle.load(open('svm.pkl','rb'))
-normaliser=pickle.load(open('normaliser.pkl','rb'))
+svm = pickle.load(open('svmfixed.pkl','rb'))
+normaliser=pickle.load(open('normaliserfixed.pkl','rb'))
 
 #from matplotlib import pyplot as plt
 
