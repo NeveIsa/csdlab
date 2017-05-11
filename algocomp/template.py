@@ -11,8 +11,8 @@ except:
 
 camera = cv2.VideoCapture(cam_source)
 
-for x in range(20):
-	camera.read()
+for x in range(10):
+	ret, frame = camera.read()
 
 
 if __name__ == "__main__":
