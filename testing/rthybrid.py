@@ -1,7 +1,7 @@
 import cv2
 import sys,os,json
 import numpy as np
-import datetime,time,json
+import datetime,time,json,resource
 
 import pickle
 
@@ -343,7 +343,9 @@ while True:
   present = time.time()
   fps = present-past
   fps = 1/fps
-  print "FPS:",fps,frame_count
+  print "FPS:",fps,frame_count,
+  resUse=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1000
+  print resUse,'MBytes'
   past = present
 
 
