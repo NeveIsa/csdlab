@@ -461,7 +461,7 @@ while True:
     cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
     cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
     img = cv2.add(frame,mask)
-    cv2.imshow('frame',img)
+    #cv2.imshow('frame',img)
 
   disp=(p1-p0_backup_preshaped)
   #dist = dist*dist
@@ -579,8 +579,8 @@ while True:
             cv2.imwrite("imglog/"+timenow+"_15"+str(prediction[0])+".jpg",framesaveBUFF[15])
             #cv2.imshow('detect',framesaveBUFF[0])
             lastprediction=prediction[0]
-        with open("log/intruder.txt",'a+') as f:
-            f.write( timenow + "," + str(prediction[0])+"\r\n")
+            with open("log/intruder.txt",'a+') as f:
+                f.write( timenow + "," + str(prediction[0])+"\r\n")
 
 
 
