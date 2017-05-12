@@ -470,7 +470,7 @@ while True:
     cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
     cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
     img = cv2.add(frame,mask)
-    #cv2.imshow('frame',img)
+    cv2.imshow('frame',img)
 
   disp=(p1-p0_backup_preshaped)
   #dist = dist*dist
@@ -574,6 +574,7 @@ while True:
         f.write( timenow + "," + str(prediction[0])+"\r\n")
     
     if prediction[0]==2:
+        lastprediction=prediction[0]
         pass
 
     elif os.path.exists("imglog/"+timenow+".jpg"):
