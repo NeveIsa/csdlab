@@ -596,10 +596,14 @@ while True:
             pass
         else:
             cv2.imwrite("imglog/"+timenow+"_0."+str(prediction[0])+".jpg",framesaveBUFF[0])
+            cv2.imwrite("imglog/"+timenow+"_3."+str(prediction[0])+".jpg",framesaveBUFF[3])
             cv2.imwrite("imglog/"+timenow+"_5."+str(prediction[0])+".jpg",framesaveBUFF[5])
+            cv2.imwrite("imglog/"+timenow+"_7."+str(prediction[0])+".jpg",framesaveBUFF[7])
             cv2.imwrite("imglog/"+timenow+"_10."+str(prediction[0])+".jpg",framesaveBUFF[10])
+            cv2.imwrite("imglog/"+timenow+"_12."+str(prediction[0])+".jpg",framesaveBUFF[12])
             cv2.imwrite("imglog/"+timenow+"_15."+str(prediction[0])+".jpg",framesaveBUFF[15])
-            cv2.imwrite("imglog/"+timenow+"_all."+str(prediction[0])+".jpg",framesaveBUFF[15]/4+framesaveBUFF[10]/4+framesaveBUFF[5]/4+framesaveBUFF[0]/4)
+            cv2.imwrite("imglog/"+timenow+"_17."+str(prediction[0])+".jpg",framesaveBUFF[17])
+            #cv2.imwrite("imglog/"+timenow+"_all."+str(prediction[0])+".jpg",framesaveBUFF[15]/4+framesaveBUFF[10]/4+framesaveBUFF[5]/4+framesaveBUFF[0]/4)
             #cv2.imshow('detect',framesaveBUFF[0])
             lastprediction=prediction[0]
             with open("log/intruder.txt",'a+') as f:
