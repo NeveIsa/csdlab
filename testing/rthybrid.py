@@ -598,8 +598,9 @@ while True:
             #cv2.imwrite("imglog/"+timenow+"_all."+str(prediction[0])+".jpg",framesaveBUFF[15]/4+framesaveBUFF[10]/4+framesaveBUFF[5]/4+framesaveBUFF[0]/4)
             #cv2.imshow('detect',framesaveBUFF[0])
             lastprediction=prediction[0]
-            with open("log/intruder.txt",'a+') as f:
-                f.write( timenow + "," + str(prediction[0])+"\r\n")
+            
+        with open("log/intruder.txt",'a+') as f:
+            f.write( timenow + "," + str(prediction[0])+"\r\n")
 
 
 
