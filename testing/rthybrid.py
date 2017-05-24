@@ -577,7 +577,9 @@ while True:
     
     if prediction[0]==2:
         lastprediction=prediction[0]
-        pass
+        with open("log/intruder.txt",'a+') as f:
+        	f.write( timenow + "," + str(prediction[0])+"\r\n")
+        
 
     elif os.path.exists("imglog/"+timenow+".jpg"):
         pass
