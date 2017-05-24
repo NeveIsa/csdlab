@@ -576,9 +576,13 @@ while True:
         f.write( timenow + "," + str(prediction[0])+"\r\n")
     
     if prediction[0]==2:
+        if lastprediction==prediction[0]:
+          pass
+        else:
+          with open("log/intruder.txt",'a+') as f:
+            f.write("\r\n")
+
         lastprediction=prediction[0]
-        with open("log/intruder.txt",'a+') as f:
-        	f.write( timenow + "," + str(prediction[0])+"\r\n")
         
 
     elif os.path.exists("imglog/"+timenow+".jpg"):
