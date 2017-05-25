@@ -453,6 +453,9 @@ while True:
 
   if nDetectedpoints<8:
     print "--------->","reinit p0"
+    with open("log/reinits.txt",'a+') as f:
+      timenow=datetime.datetime.now().strftime("%d-%m-%y__%H-%M-%S")
+      f.write(timenow+"\r\n")
     mask = np.copy(mask_blank)
     init_points()
     continue
