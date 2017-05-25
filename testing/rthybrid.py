@@ -15,6 +15,9 @@ if not os.path.exists("imglog"):
 
 
 
+os.system("date >> log/restart.txt")
+
+
 ## create SVM MODEL from pickle
 svm = pickle.load(open('svmfixed.pkl','rb'))
 normaliser=pickle.load(open('normaliserfixed.pkl','rb'))
