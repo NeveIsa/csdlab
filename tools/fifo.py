@@ -1,13 +1,19 @@
 import socket,serial
+import sys
 
-ser=serial.Serial("/dev/tnt0",115200)
+if len(sys.argv)>1:
+  ttyport=sys.argv[1]
+else:
+  ttyport="/dev/ttyUSB1"
+
+ser=serial.Serial(ttyport,115200)
 
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 s.connect(("10.208.20.42",9090))
 
 
-print "Connect /dev/tnt1 and hit RETURN..."
+print "Connect /dev/ttyUSB0/x and hit RETURN..."
 raw_input()
 
 while 1:
