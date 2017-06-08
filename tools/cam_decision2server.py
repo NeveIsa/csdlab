@@ -100,7 +100,7 @@ def handle_new_intruder():
 
 last_intr_lines=total_intrusion_lines()
 
-x=handle_new_intruder()
+#x=handle_new_intruder()
 
 
 #exit()
