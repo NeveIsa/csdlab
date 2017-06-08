@@ -21,8 +21,8 @@ while 1:
     time.sleep(1)
   else:
     print "FOUND INTRUDER FILE",intruderFile
-    print "FIRST INTRUSION...waiting for 12s"
-    time.sleep(12)
+    print "FIRST INTRUSION...waiting for 20s"
+    time.sleep(20)
     break
   #sys.exit(1)
 
