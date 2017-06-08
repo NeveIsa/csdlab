@@ -15,9 +15,13 @@ packet_id=0
 
 intruderFile="log/intruder.txt"
 
-if not os.path.exists(intruderFile):
-  print "%s file not found..." % intruderFile
-  sys.exit(1)
+while 1:
+  if not os.path.exists(intruderFile):
+    print "%s file not found..." % intruderFile
+    time.sleep(1)
+  else:
+    break
+  #sys.exit(1)
 
 
 def total_intrusion_lines():
