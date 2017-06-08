@@ -105,10 +105,10 @@ x=handle_new_intruder()
 while 1:
   intr_lines=total_intrusion_lines()
   if last_intr_lines==intr_lines:
-    time.sleep(7) # no new intrusions
+    time.sleep(3) # no new intrusions
   else:
     handle_new_intruder()
-    time.sleep(15)
+    time.sleep(10)
     last_intr_lines=total_intrusion_lines()
 
 
