@@ -21,6 +21,8 @@ while 1:
     time.sleep(1)
   else:
     print "FOUND INTRUDER FILE",intruderFile
+    print "FIRST INTRUSION...waiting for 12s"
+    time.sleep(12)
     break
   #sys.exit(1)
 
@@ -56,8 +58,8 @@ def handle_new_intruder():
     pos_of_blank_line = data.index("")
   except:
     pos_of_blank_line=len(data)
-    print "FIRST DETECTION.... Waiting for 10s"
-    time.sleep(10) #first detection has no new line, so wait for some time or we  get multiple detections
+    print "FIRST DETECTION...."
+    #time.sleep(10) #first detection has no new line, so wait for some time or we  get multiple detections
 
   data=data[:pos_of_blank_line]
   #print ""
