@@ -52,7 +52,11 @@ def handle_new_intruder():
   data.reverse()
   #print ""
   #print data
-  pos_of_blank_line = data.index("")
+  try:
+    pos_of_blank_line = data.index("")
+  except:
+    return
+
   data=data[:pos_of_blank_line]
   #print ""
   #print data
