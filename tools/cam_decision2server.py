@@ -56,6 +56,7 @@ def handle_new_intruder():
     pos_of_blank_line = data.index("")
   except:
     pos_of_blank_line=len(data)
+    time.sleep(10) #first detection has no new line, so wait for some time or we  get multiple detections
 
   data=data[:pos_of_blank_line]
   #print ""
