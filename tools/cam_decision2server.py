@@ -20,7 +20,7 @@ while 1:
     print "%s file not found..." % intruderFile
     time.sleep(1)
   else:
-    print "FOUND INTRUDEr FILE",intruderFile
+    print "FOUND INTRUDER FILE",intruderFile
     break
   #sys.exit(1)
 
@@ -55,7 +55,7 @@ def handle_new_intruder():
   try:
     pos_of_blank_line = data.index("")
   except:
-    return
+    pos_of_blank_line=len(data)
 
   data=data[:pos_of_blank_line]
   #print ""
@@ -98,16 +98,17 @@ last_intr_lines=total_intrusion_lines()
 
 x=handle_new_intruder()
 
-'''
-exit()
+
+#exit()
 
 
 while 1:
   intr_lines=total_intrusion_lines()
-  if last_intr_lines+3<intr_lines:
+  if last_intr_lines==intr_lines:
     time.sleep(7) # no new intrusions
   else:
     handle_new_intruder()
     sleep(15)
-    last_intr_lines=total
-'''
+    last_intr_lines=total_intrusion_lines()
+
+
