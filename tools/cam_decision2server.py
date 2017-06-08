@@ -20,6 +20,7 @@ while 1:
     print "%s file not found..." % intruderFile
     time.sleep(1)
   else:
+    print "FOUND INTRUDEr FILE",intruderFile
     break
   #sys.exit(1)
 
