@@ -108,7 +108,7 @@ while 1:
     time.sleep(7) # no new intrusions
   else:
     handle_new_intruder()
-    sleep(15)
+    time.sleep(15)
     last_intr_lines=total_intrusion_lines()
 
 
