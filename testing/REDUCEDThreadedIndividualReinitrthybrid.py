@@ -527,10 +527,10 @@ while True:
     #print enumerate(zip(good_new,good_old))
     a,b = new.ravel() # good_new, it returns the flattened array, this is the coordinate corresponding to good_new points
     c,d = old.ravel() # good_old, this is the old coordinate
-    cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
-    cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
-    img = cv2.add(frame,mask)
-    cv2.imshow('frame',img)
+    #cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
+    #cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
+    #img = cv2.add(frame,mask)
+    #cv2.imshow('frame',img)
 
   disp=(p1-p0_backup_preshaped)
   #dist = dist*dist
