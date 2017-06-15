@@ -19,7 +19,10 @@ class FastCam:
 	def __updates(self):
 		while not self.stop:
 			self.fstatus,self.frame=self.cap.read()
-			self.captureCounter+=1
+			if self.fstatus:
+				self.captureCounter+=1
+			else:
+				pass
 
 	def start(self):
 		self.thread=Thread(target=self.__updates)
@@ -35,7 +38,6 @@ class FastCam:
 		while self.readCounter==self.captureCounter:
 			pass
 		self.readCounter=self.captureCounter
-                self.frame=cv2.resize(self.frame,(0,0),fx=0.5,fy=0.5)
 		return self.fstatus,self.frame
 
 
@@ -76,6 +78,9 @@ cap.start()
 
 s,frame = cap.read()
 
+originalHeight, originalWidth = frame.shape[:2]
+frame = cv2.resize(frame,(originalWidth/2, originalHeight/2), interpolation = cv2.INTER_LINEAR)
+
 ### FOR CONSECUTIVE SUBTRACTION ###
 
 lastframe=frame
@@ -112,7 +117,7 @@ feature_params = dict( maxCorners = 100,
                        minDistance = 7,
                        blockSize = 7)
 # Parameters for lucas kanade optical flow
-lk_params = dict( winSize  = (17,17),
+lk_params = dict( winSize  = (31,31),
                   maxLevel = 2,
                   criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
 # Create some random colors
@@ -123,6 +128,7 @@ mask = np.zeros_like(frame)
 
 # Take first frame and find corners in it
 ret, old_frame = cap.read()
+old_frame = cv2.resize(old_frame,(originalWidth/2, originalHeight/2), interpolation = cv2.INTER_LINEAR)
 old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
 p0 = cv2.goodFeaturesToTrack(old_gray, mask = None, **feature_params)
 xtemp = p0[0]
@@ -404,7 +410,7 @@ while True:
   s,frame = cap.read()
   if not s:
     break
-
+  frame = cv2.resize(frame,(originalWidth/2, originalHeight/2), interpolation = cv2.INTER_LINEAR)
   
 
   ### BG SUBTRATION ###
@@ -527,10 +533,10 @@ while True:
     #print enumerate(zip(good_new,good_old))
     a,b = new.ravel() # good_new, it returns the flattened array, this is the coordinate corresponding to good_new points
     c,d = old.ravel() # good_old, this is the old coordinate
-    #cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
-    #cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
-    #img = cv2.add(frame,mask)
-    #cv2.imshow('frame',img)
+    cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
+    cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
+    img = cv2.add(frame,mask)
+    cv2.imshow('frame',img)
 
   disp=(p1-p0_backup_preshaped)
   #dist = dist*dist

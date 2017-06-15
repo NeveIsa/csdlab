@@ -19,7 +19,10 @@ class FastCam:
 	def __updates(self):
 		while not self.stop:
 			self.fstatus,self.frame=self.cap.read()
-			self.captureCounter+=1
+			if self.fstatus:
+				self.captureCounter+=1
+			else:
+				pass
 
 	def start(self):
 		self.thread=Thread(target=self.__updates)
