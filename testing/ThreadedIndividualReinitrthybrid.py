@@ -6,6 +6,7 @@ import datetime,time,json,resource
 import pickle
 
 from threading import Thread
+import Queue
 
 class FastCam:
 	def __init__(self,cam_id):
@@ -13,6 +14,7 @@ class FastCam:
 		self.stop=False
 		self.captureCounter=0
 		self.readCounter=0
+		self.q=Queue.Queue()
 		for x in range(9):
 			self.fstatus,self.frame=self.cap.read()
 
@@ -20,6 +22,11 @@ class FastCam:
 		while not self.stop:
 			self.fstatus,self.frame=self.cap.read()
 			if self.fstatus:
+				if self.q.empty():
+					self.q.put(self.frame)
+				else:
+					self.q.get()
+					self.q.put(self.frame)
 				self.captureCounter+=1
 			else:
 				pass
@@ -38,7 +45,7 @@ class FastCam:
 		while self.readCounter==self.captureCounter:
 			pass
 		self.readCounter=self.captureCounter
-		return self.fstatus,self.frame
+		return self.fstatus,self.q.get()
 
 
 if not os.path.exists("log"):
