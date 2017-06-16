@@ -13,7 +13,7 @@ class FastCam:
 		self.cap=cv2.VideoCapture(cam_id)
 		self.stop=False
 		self.captureCounter=0
-		self.readCounter=0
+		#self.readCounter=0
 		self.q=Queue.Queue()
 		for x in range(9):
 			self.fstatus,self.frame=self.cap.read()
@@ -27,7 +27,7 @@ class FastCam:
 				else:
 					self.q.get()
 					self.q.put(self.frame)
-				self.captureCounter+=1
+				#self.captureCounter+=1
 			else:
 				pass
 
@@ -42,9 +42,10 @@ class FastCam:
 		self.cap.release()
 
 	def read(self):
-		while self.readCounter==self.captureCounter:
+		#while self.readCounter==self.captureCounter:
+		while self.q.empty():
 			pass
-		self.readCounter=self.captureCounter
+		#self.readCounter=self.captureCounter
 		return self.fstatus,self.q.get()
 
 

@@ -7,38 +7,6 @@ import pickle
 
 from threading import Thread
 
-class FastCam:
-	def __init__(self,cam_id):
-		self.cap=cv2.VideoCapture(cam_id)
-		self.stop=False
-		self.captureCounter=0
-		self.readCounter=0
-		for x in range(9):
-			self.fstatus,self.frame=self.cap.read()
-
-	def __updates(self):
-		while not self.stop:
-			self.fstatus,self.frame=self.cap.read()
-			if self.fstatus:
-				self.captureCounter+=1
-			else:
-				pass
-
-	def start(self):
-		self.thread=Thread(target=self.__updates)
-		self.thread.setDaemon(True)
-		self.thread.start()
-
-	def release(self):
-		self.stop=True
-		self.thread.join()
-		self.cap.release()
-
-	def read(self):
-		while self.readCounter==self.captureCounter:
-			pass
-		self.readCounter=self.captureCounter
-		return self.fstatus,self.frame
 
 
 if not os.path.exists("log"):
