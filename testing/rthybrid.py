@@ -365,7 +365,7 @@ while True:
   yframe = cv2.medianBlur(y,5)
   ydiff=cv2.absdiff(lastframe,yframe)
 
-  saveframe(yframe)
+  saveframe(frame)
 
   ###----------------------------- UNCOMMENTING THE FOLLOWING MAKES THIS consequtiveSubtraction ---------------------------
   lastframe=yframe

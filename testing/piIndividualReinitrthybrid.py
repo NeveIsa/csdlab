@@ -392,7 +392,7 @@ while True:
   yframe = cv2.medianBlur(y,5)
   ydiff=cv2.absdiff(lastframe,yframe)
 
-  saveframe(yframe)
+  saveframe(frame)
 
   ###----------------------------- UNCOMMENTING THE FOLLOWING MAKES THIS consequtiveSubtraction ---------------------------
   lastframe=yframe
@@ -527,7 +527,7 @@ while True:
   #time.sleep(0.1)
 
   maxDispXaxis=max(np.abs(disp[:,0,0]))
-  if maxDispXaxis>100 or frame_count>=FeedSizeMAX/2:
+  if maxDispXaxis>70 or frame_count>=FeedSizeMAX/2:
     #raw_input()
     init_points()
     mask = np.copy(mask_blank)
