@@ -87,7 +87,7 @@ feature_params = dict( maxCorners = 100,
                        minDistance = 7,
                        blockSize = 7)
 # Parameters for lucas kanade optical flow
-lk_params = dict( winSize  = (17,17),
+lk_params = dict( winSize  = (19,19),
                   maxLevel = 2,
                   criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
 # Create some random colors
