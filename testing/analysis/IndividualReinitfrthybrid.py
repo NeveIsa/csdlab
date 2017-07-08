@@ -31,7 +31,7 @@ except:
 
 cap = cv2.VideoCapture(camera_id)
 
-for x in range(9):
+for x in range(3):
   cap.read()
 
 
@@ -73,7 +73,7 @@ feature_params = dict( maxCorners = 100,
                        minDistance = 7,
                        blockSize = 7)
 # Parameters for lucas kanade optical flow
-flow_win_size=(71,71)
+flow_win_size=(21,21)
 lk_params = dict( winSize  = flow_win_size,
                   maxLevel = 2,
                   #minEigThreshold=1e-9,
@@ -505,7 +505,9 @@ while True:
     c,d = old.ravel() # good_old, this is the old coordinate
     cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
     cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
-    cv2.rectangle(mask,(int(a)-flow_win_size[0]/2,int(b)-flow_win_size[1]/2),(int(a)+flow_win_size[0]/2,int(b)+flow_win_size[1]/2),(255,255,255))
+    #flow_win_size*=2
+    #cv2.rectangle(mask,(int(a)-flow_win_size[0]/2,int(b)-flow_win_size[1]/2),(int(a)+flow_win_size[0]/2,int(b)+flow_win_size[1]/2),(255,255,255))
+    cv2.rectangle(mask,(int(a)-flow_win_size[0],int(b)-flow_win_size[1]),(int(a)+flow_win_size[0],int(b)+flow_win_size[1]),(255,255,255))
     img = cv2.add(frame,mask)
     cv2.imshow('frame',img)
 

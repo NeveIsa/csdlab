@@ -6,7 +6,7 @@ if len(sys.argv)>1:
 else:
   bgimg="bgimg.jpg"
 
-bgimg=cv2.imread(bgimg)
+bgimg=cv2.imread(bgimg)/2
 
 ht,wt,nch=bgimg.shape
 
@@ -29,8 +29,8 @@ print ht,wt
 rec_ht,rec_wt=ht-1,30
 rec_init_x=0
 rec_init_y=0
-rec_color=(200,0,180)
-rec_delta=1
+rec_color=(255,255,255) #(200,0,180)
+rec_delta=10
 
 
 rec_init_x_backup=rec_init_x
