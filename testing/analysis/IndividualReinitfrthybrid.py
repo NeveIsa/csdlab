@@ -5,6 +5,7 @@ import datetime,time,json,resource
 
 import pickle
 
+start_video_rec=0
 
 
 if not os.path.exists("log"):
@@ -31,7 +32,7 @@ except:
 
 cap = cv2.VideoCapture(camera_id)
 
-for x in range(3):
+for x in range(30):
   cap.read()
 
 
@@ -47,6 +48,14 @@ lastframe = y
 lastframe = cv2.medianBlur(lastframe,5)
 
 ht,wt=y.shape
+
+
+
+fourcc = cv2.cv.CV_FOURCC(*'XVID')
+out = cv2.VideoWriter('output.avi',fourcc, 20.0, (wt,ht))
+
+
+
 
 
 frames_elapsed=0
@@ -73,7 +82,7 @@ feature_params = dict( maxCorners = 100,
                        minDistance = 7,
                        blockSize = 7)
 # Parameters for lucas kanade optical flow
-flow_win_size=(21,21)
+flow_win_size=(19,19)
 lk_params = dict( winSize  = flow_win_size,
                   maxLevel = 2,
                   #minEigThreshold=1e-9,
@@ -370,7 +379,7 @@ while True:
   print resUse,'MBytes'
   past = present
 
-  raw_input()
+  #raw_input()
 
   #time.sleep(0.2)
   s,frame = cap.read()
@@ -507,9 +516,19 @@ while True:
     cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
     #flow_win_size*=2
     #cv2.rectangle(mask,(int(a)-flow_win_size[0]/2,int(b)-flow_win_size[1]/2),(int(a)+flow_win_size[0]/2,int(b)+flow_win_size[1]/2),(255,255,255))
-    cv2.rectangle(mask,(int(a)-flow_win_size[0],int(b)-flow_win_size[1]),(int(a)+flow_win_size[0],int(b)+flow_win_size[1]),(255,255,255))
+    cv2.rectangle(mask,(int(a)-flow_win_size[0],int(b)-flow_win_size[1]),(int(a)+flow_win_size[0],int(b)+flow_win_size[1]),(0,50,255),7)
     img = cv2.add(frame,mask)
     cv2.imshow('frame',img)
+  
+  cv2.imwrite("op.jpg", img)
+  user_input=raw_input()
+  if user_input=='s':
+    print "-------------> Video rec started"
+    start_video_rec=1
+
+  if start_video_rec:
+    out.write(img)
+
 
   disp=(p1-p0_backup_preshaped)
   #dist = dist*dist
@@ -932,3 +951,4 @@ print "END"
 
 cap.release()
 cv2.destroyAllWindows()
+out.release()
